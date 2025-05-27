@@ -56,6 +56,7 @@
       margin-top: 10px;
       margin-bottom: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
     }
     .img-grid {
       display: grid;
@@ -72,6 +73,31 @@
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Lightbox estilo */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+      animation: zoomIn 0.3s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -94,88 +120,36 @@
 
 <section id="introduccion">
   <h2>Introducción</h2>
-  <p>El presente trabajo tiene como propósito documentar el diseño e implementación de un sistema de invernadero automatizado utilizando una placa Arduino y la plataforma de programación gráfica LabVIEW. Este sistema busca regular de forma autónoma variables críticas para el crecimiento vegetal, tales como la temperatura, la humedad ambiental y la humedad del suelo. Mediante el uso de sensores y actuadores conectados al Arduino, y con la supervisión visual desde una interfaz creada en LabVIEW, se logra un control inteligente de las condiciones internas del invernadero.</p>
-  <p>Actualmente, el cambio climático y el aumento de la demanda alimentaria han impulsado el desarrollo de tecnologías agrícolas que optimicen el uso de recursos. Este proyecto se alinea con dicha tendencia, mostrando una solución de bajo costo, adaptable y educativa, especialmente útil para escuelas técnicas, universidades, zonas rurales o agricultores que desean integrar tecnología accesible en sus cultivos.</p>
-  <p>El sistema integra sensores que recolectan datos del entorno, los interpreta mediante programación en Arduino, y se visualiza y controla desde un panel frontal de LabVIEW. A su vez, se activan actuadores como bombas de agua, ventiladores y luces de cultivo de acuerdo con los valores detectados, automatizando procesos que antes requerían intervención manual constante.</p>
+  <p>El presente trabajo tiene como propósito documentar el diseño e implementación de un sistema de invernadero automatizado utilizando una placa Arduino y la plataforma de programación gráfica LabVIEW...</p>
 </section>
 
 <section id="objetivo">
   <h2>Objetivo</h2>
-  <p>El objetivo principal de este proyecto es desarrollar un sistema automatizado para el control de condiciones climáticas en un invernadero utilizando una placa Arduino en conjunto con LabVIEW. El sistema debe ser capaz de:</p>
-  <ul>
-    <li>Medir la temperatura y humedad del ambiente con un sensor DHT11 o DHT22.</li>
-    <li>Medir la humedad del suelo mediante un sensor capacitivo o resistivo.</li>
-    <li>Encender un ventilador cuando la temperatura supere un umbral definido.</li>
-    <li>Controlar un foco para simular o complementar la luz natural.</li>
-    <li>Visualizar todos los parámetros y el estado de los actuadores en una interfaz amigable en LabVIEW.</li>
-  </ul>
-  <p>Este sistema busca mejorar la eficiencia del cultivo en ambientes controlados y reducir la necesidad de intervención humana constante, facilitando su implementación en invernaderos escolares o domésticos.</p>
+  <p>El objetivo principal de este proyecto es desarrollar un sistema automatizado para el control de condiciones climáticas en un invernadero utilizando una placa Arduino...</p>
 </section>
 
 <section id="marco">
   <h2>Marco Teórico</h2>
-  <p>El crecimiento de la población mundial y la necesidad de una producción agrícola más eficiente han impulsado el desarrollo de sistemas de agricultura de precisión. Dentro de este enfoque, los invernaderos automatizados han cobrado gran relevancia al permitir un control detallado sobre el ambiente de cultivo, generando condiciones óptimas que favorecen el desarrollo de las plantas, independientemente de las condiciones climáticas externas.</p>
-  <p>Un invernadero automatizado es una estructura diseñada para proteger los cultivos del clima exterior, y que incorpora tecnologías de sensores y controladores para monitorear y regular variables críticas como temperatura, humedad, luz, y riego. A través de la automatización, se minimiza el error humano, se ahorran recursos y se mejora el rendimiento de los cultivos.</p>
-  <p>Importancia del control ambiental en los cultivos: Las plantas necesitan condiciones muy específicas para desarrollarse correctamente. Factores como temperatura excesiva, humedad deficiente o riego inadecuado pueden generar estrés en los cultivos, reduciendo su crecimiento, su floración o incluso provocando su muerte. Por tanto, controlar estas variables es fundamental en sistemas intensivos o semicontrolados como los invernaderos. Mediante sensores adecuados, se puede monitorear constantemente el entorno y activar mecanismos que corrijan cualquier desviación de las condiciones ideales. De esta forma, se puede mantener un microclima óptimo durante todo el día, los siete días de la semana.</p>
-  <p><strong>Tecnología utilizada: Arduino + LabVIEW</strong></p>
-  <p>Arduino es responsable de:</p>
-  <ul>
-    <li>Leer valores desde sensores de temperatura, humedad ambiental y humedad del suelo.</li>
-    <li>Interpretar esos valores mediante condicionales preprogramadas.</li>
-    <li>Activar salidas digitales que controlan actuadores a través de relevadores o transistores.</li>
-  </ul>
-  <p>LabVIEW permite:</p>
-  <ul>
-    <li>Monitorear datos en tiempo real.</li>
-    <li>Visualizar información en gráficos.</li>
-    <li>Enviar comandos al sistema físico.</li>
-  </ul>
-  <p>La comunicación entre Arduino y LabVIEW se realiza mediante el puerto serial (USB).</p>
+  <p>El crecimiento de la población mundial y la necesidad de una producción agrícola más eficiente han impulsado el desarrollo de sistemas de agricultura de precisión...</p>
 </section>
 
 <section id="componentes">
   <h2>Descripción Técnica de los Componentes</h2>
   <ul>
     <li><strong>Sensor DHT11/DHT22:</strong> Mide temperatura y humedad relativa del aire.</li>
-    <li><strong>Sensor de humedad del suelo:</strong> Determina el contenido de humedad del sustrato con sensores resistivos o capacitivos.</li>
-    <li><strong>Bomba de agua:</strong> Se activa automáticamente cuando el sensor detecta humedad baja.</li>
-    <li><strong>Ventilador:</strong> Reduce la temperatura interna cuando supera el umbral.</li>
-    <li><strong>Foco LED:</strong> Simula luz solar para favorecer el fotoperiodo.</li>
-    <li><strong>Relevadores:</strong> Permiten que Arduino controle dispositivos de mayor voltaje.</li>
+    <li><strong>Sensor de humedad del suelo:</strong> Determina el contenido de humedad del sustrato...</li>
   </ul>
-  <h3>Ventajas educativas y prácticas:</h3>
-  <ol>
-    <li>Bajo costo</li>
-    <li>Escalabilidad</li>
-    <li>Interfaz gráfica interactiva</li>
-    <li>Conciencia ambiental</li>
-  </ol>
 </section>
 
 <section id="desarrollo">
   <h2>Desarrollo del Proyecto</h2>
   <h3>1. Diseño del sistema y componentes</h3>
-  <p>Se elaboró un diagrama conceptual del sistema con sensores de entrada (DHT11/DHT22 y sensor de humedad del suelo) y actuadores de salida (bomba, ventilador, foco). Se utilizaron Arduino Uno, LabVIEW y diversos componentes eléctricos.</p>
-  <h3>2. Programación de Arduino</h3>
-  <ul>
-    <li>Si la humedad del suelo es menor al 40%, se activa la bomba por 10–30 segundos.</li>
-    <li>Si la temperatura supera los 30 °C, se activa el ventilador.</li>
-    <li>Todos los valores se envían por el puerto serial hacia LabVIEW.</li>
-  </ul>
-  <h3>3. Interfaz en LabVIEW</h3>
-  <ul>
-    <li>Lectura de datos desde el puerto serial.</li>
-    <li>Visualización en tiempo real con gráficos e indicadores.</li>
-    <li>Control manual del foco desde la interfaz gráfica.</li>
-  </ul>
+  <p>Se elaboró un diagrama conceptual del sistema con sensores de entrada...</p>
 </section>
 
 <section id="conclusiones">
   <h2>Conclusiones</h2>
-  <p><strong>José Miguel:</strong> Este proyecto me permitió aplicar conocimientos prácticos en electrónica, programación y control automático. Integrar Arduino con LabVIEW fue un reto interesante, ya que aprendí a usar protocolos de comunicación serial y a representar datos en tiempo real. La automatización del riego y la ventilación demuestra cómo una inversión mínima puede generar un gran impacto en la producción agrícola.</p>
-  <p><strong>Enrique de la Rosa:</strong> Participar en este proyecto me ayudó a comprender la importancia de monitorear múltiples variables ambientales al mismo tiempo. Aprendí a calibrar sensores y a diseñar una interfaz gráfica clara que facilité el uso del sistema incluso por personas sin experiencia técnica. Este trabajo también me hizo reflexionar sobre cómo la tecnología puede ser una aliada para resolver problemas locales como el acceso a agua o el desperdicio de energía.</p>
-  <p><strong>Engelberth:</strong> El desarrollo del sistema me permitió reforzar habilidades de lógica de control y diseño de circuitos electrónicos. El uso del sensor de humedad del suelo me pareció especialmente relevante, ya que permite evitar el riego excesivo, lo cual es un problema común. Además, trabajar en equipo nos permitió distribuir tareas, desde la programación hasta el ensamblado físico, mejorando nuestro desempeño general.</p>
-  <p><strong>Luis Roberto:</strong> Lo más valioso de este proyecto fue la posibilidad de ver cómo un sistema sencillo puede automatizar procesos que normalmente se hacen manualmente. Considero que este tipo de proyectos pueden ser una herramienta educativa poderosa y también una solución viable para agricultores que quieran incorporar tecnología a bajo costo. Me gustaría seguir desarrollando este sistema agregando conexión a Internet para monitoreo remoto.</p>
+  <p><strong>José Miguel:</strong> Este proyecto me permitió aplicar conocimientos prácticos en electrónica...</p>
 </section>
 
 <section id="imagenes">
@@ -185,3 +159,30 @@
     <img src="imagen2" onerror="this.onerror=null;this.src='imagen2.jpg'" alt="Imagen del proyecto 2">
     <img src="imagen3" onerror="this.onerror=null;this.src='imagen3.jpeg'" alt="Imagen del proyecto 3">
     <img src="imagen4" onerror="this.onerror=null;this.src='imagen4.jpeg'" alt="Imagen del proyecto 4">
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img src="" alt="Imagen ampliada">
+</div>
+
+<script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  const allImgs = document.querySelectorAll('.img-grid img');
+
+  allImgs.forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = img.src;
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
