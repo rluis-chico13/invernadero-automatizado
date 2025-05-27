@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Invernadero Automatizado - ITA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
-      background-color: #f0fff4;
-      color: #333;
+      background-color: #f4f9f4;
+      color: #2e2e2e;
       scroll-behavior: smooth;
     }
     header {
-      background-color: #2e8b57;
+      background-color: #1e5631;
       color: white;
       padding: 30px;
       text-align: center;
     }
     nav {
-      background-color: #e8f5e9;
+      background-color: #d9f0e1;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -30,19 +31,26 @@
     }
     nav a {
       text-decoration: none;
-      color: #2e7d32;
+      color: #14532d;
       font-weight: bold;
-      transition: color 0.3s, transform 0.3s;
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #c7efd0;
+      transition: color 0.3s, background-color 0.3s, transform 0.3s;
     }
     nav a:hover {
-      color: #1b5e20;
+      background-color: #a3d9ac;
+      color: white;
       transform: scale(1.05);
     }
     section {
       max-width: 1000px;
-      margin: auto;
+      margin: 40px auto;
       padding: 40px 20px;
-      animation: fadeIn 1s ease-in;
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      animation: fadeInUp 0.8s ease-in-out;
     }
     h2 {
       color: #2e7d32;
@@ -55,23 +63,36 @@
       border-radius: 8px;
       margin-top: 10px;
       margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
     .img-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
     }
+    .img-grid img {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .img-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
     footer {
-      background-color: #2e8b57;
+      background-color: #1e5631;
       color: white;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -101,73 +122,32 @@
 
 <section id="objetivo">
   <h2>Objetivo</h2>
-  <p>El objetivo principal de este proyecto es desarrollar un sistema automatizado para el control de condiciones climáticas en un invernadero utilizando una placa Arduino en conjunto con LabVIEW. El sistema debe ser capaz de:</p>
-  <ul>
-    <li>Medir la temperatura y humedad del ambiente con un sensor DHT11 o DHT22.</li>
-    <li>Medir la humedad del suelo mediante un sensor capacitivo o resistivo.</li>
-    <li>Encender un ventilador cuando la temperatura supere un umbral definido.</li>
-    <li>Controlar un foco para simular o complementar la luz natural.</li>
-    <li>Visualizar todos los parámetros y el estado de los actuadores en una interfaz amigable en LabVIEW.</li>
-  </ul>
-  <p>Este sistema busca mejorar la eficiencia del cultivo en ambientes controlados y reducir la necesidad de intervención humana constante, facilitando su implementación en invernaderos escolares o domésticos.</p>
+  <p>El objetivo principal de este proyecto es desarrollar un sistema automatizado para el control de condiciones climáticas en un invernadero utilizando una placa Arduino en conjunto con LabVIEW. El sistema debe ser capaz de medir temperatura, humedad del ambiente y del suelo; accionar ventilación, riego y luz; y visualizar toda esta información en una interfaz gráfica para mejorar la eficiencia del cultivo en ambientes controlados.</p>
 </section>
 
 <section id="marco">
   <h2>Marco Teórico</h2>
   <p>El crecimiento de la población mundial y la necesidad de una producción agrícola más eficiente han impulsado el desarrollo de sistemas de agricultura de precisión. Dentro de este enfoque, los invernaderos automatizados han cobrado gran relevancia al permitir un control detallado sobre el ambiente de cultivo, generando condiciones óptimas que favorecen el desarrollo de las plantas, independientemente de las condiciones climáticas externas.</p>
-  <p>Un invernadero automatizado es una estructura diseñada para proteger los cultivos del clima exterior, y que incorpora tecnologías de sensores y controladores para monitorear y regular variables críticas como temperatura, humedad, luz, y riego. A través de la automatización, se minimiza el error humano, se ahorran recursos y se mejora el rendimiento de los cultivos.</p>
-  <p>Importancia del control ambiental en los cultivos: Las plantas necesitan condiciones muy específicas para desarrollarse correctamente. Factores como temperatura excesiva, humedad deficiente o riego inadecuado pueden generar estrés en los cultivos, reduciendo su crecimiento, su floración o incluso provocando su muerte. Por tanto, controlar estas variables es fundamental en sistemas intensivos o semicontrolados como los invernaderos. Mediante sensores adecuados, se puede monitorear constantemente el entorno y activar mecanismos que corrijan cualquier desviación de las condiciones ideales. De esta forma, se puede mantener un microclima óptimo durante todo el día, los siete días de la semana.</p>
-  <p><strong>Tecnología utilizada: Arduino + LabVIEW</strong></p>
-  <p>Arduino es responsable de:</p>
-  <ul>
-    <li>Leer valores desde sensores de temperatura, humedad ambiental y humedad del suelo.</li>
-    <li>Interpretar esos valores mediante condicionales preprogramadas.</li>
-    <li>Activar salidas digitales que controlan actuadores a través de relevadores o transistores.</li>
-  </ul>
-  <p>LabVIEW permite:</p>
-  <ul>
-    <li>Monitorear datos en tiempo real.</li>
-    <li>Visualizar información en gráficos.</li>
-    <li>Enviar comandos al sistema físico.</li>
-  </ul>
-  <p>La comunicación entre Arduino y LabVIEW se realiza mediante el puerto serial (USB).</p>
+  <p>La automatización de un invernadero con Arduino y LabVIEW permite medir y controlar variables como temperatura, humedad, riego y luz artificial. El uso combinado de sensores (como DHT22 y de humedad del suelo) con relevadores, bombas, ventiladores y focos, y su supervisión visual desde LabVIEW, permite construir un sistema educativo, económico y funcional para ambientes escolares y domésticos.</p>
 </section>
 
 <section id="componentes">
-  <h2>Descripción Técnica de los Componentes</h2>
+  <h2>Componentes</h2>
   <ul>
-    <li><strong>Sensor DHT11/DHT22:</strong> Mide temperatura y humedad relativa del aire.</li>
-    <li><strong>Sensor de humedad del suelo:</strong> Determina el contenido de humedad del sustrato con sensores resistivos o capacitivos.</li>
-    <li><strong>Bomba de agua:</strong> Se activa automáticamente cuando el sensor detecta humedad baja.</li>
-    <li><strong>Ventilador:</strong> Reduce la temperatura interna cuando supera el umbral.</li>
-    <li><strong>Foco LED:</strong> Simula luz solar para favorecer el fotoperiodo.</li>
-    <li><strong>Relevadores:</strong> Permiten que Arduino controle dispositivos de mayor voltaje.</li>
+    <li>Arduino Uno</li>
+    <li>Sensor DHT11 o DHT22</li>
+    <li>Sensor de humedad del suelo (resistivo o capacitivo)</li>
+    <li>Relevadores</li>
+    <li>Bomba de agua</li>
+    <li>Ventilador</li>
+    <li>Foco LED</li>
+    <li>Interfaz gráfica en LabVIEW</li>
   </ul>
-  <h3>Ventajas educativas y prácticas:</h3>
-  <ol>
-    <li>Bajo costo</li>
-    <li>Escalabilidad</li>
-    <li>Interfaz gráfica interactiva</li>
-    <li>Conciencia ambiental</li>
-  </ol>
 </section>
 
 <section id="desarrollo">
-  <h2>Desarrollo del Proyecto</h2>
-  <h3>1. Diseño del sistema y componentes</h3>
-  <p>Se elaboró un diagrama conceptual del sistema con sensores de entrada (DHT11/DHT22 y sensor de humedad del suelo) y actuadores de salida (bomba, ventilador, foco). Se utilizaron Arduino Uno, LabVIEW y diversos componentes eléctricos.</p>
-  <h3>2. Programación de Arduino</h3>
-  <ul>
-    <li>Si la humedad del suelo es menor al 40%, se activa la bomba por 10–30 segundos.</li>
-    <li>Si la temperatura supera los 30 °C, se activa el ventilador.</li>
-    <li>Todos los valores se envían por el puerto serial hacia LabVIEW.</li>
-  </ul>
-  <h3>3. Interfaz en LabVIEW</h3>
-  <ul>
-    <li>Lectura de datos desde el puerto serial.</li>
-    <li>Visualización en tiempo real con gráficos e indicadores.</li>
-    <li>Control manual del foco desde la interfaz gráfica.</li>
-  </ul>
+  <h2>Desarrollo</h2>
+  <p>El proyecto se realizó en etapas: diseño del sistema, programación en Arduino IDE, desarrollo de la interfaz LabVIEW, ensamblaje y pruebas. Se programaron respuestas automáticas basadas en los sensores: activar bomba si la humedad es baja, activar ventilador si la temperatura es alta, y controlar el foco desde LabVIEW.</p>
 </section>
 
 <section id="conclusiones">
@@ -181,7 +161,17 @@
 <section id="imagenes">
   <h2>Imágenes del Proyecto</h2>
   <div class="img-grid">
-    <img src="imagen1" onerror="this.onerror=null;this.src='imagen1.jpg'" alt="Imagen del proyecto 1">
-    <img src="imagen2" onerror="this.onerror=null;this.src='imagen2.jpg'" alt="Imagen del proyecto 2">
-    <img src="imagen3" onerror="this.onerror=null;this.src='imagen3.jpeg'" alt="Imagen del proyecto 3">
-    <img src="imagen4" onerror="this.onerror=null;this.src='imagen4.jpeg'" alt="Imagen del proyecto 4">
+    <img src="imagen1.JPG" onerror="this.onerror=null;this.src='imagen1.jpg'" alt="Imagen del proyecto 1">
+    <img src="imagen2.JPG" onerror="this.onerror=null;this.src='imagen2.jpg'" alt="Imagen del proyecto 2">
+    <img src="imagen3.JPG" onerror="this.onerror=null;this.src='imagen3.jpg'" alt="Imagen del proyecto 3">
+    <img src="imagen4.JPG" onerror="this.onerror=null;this.src='imagen4.jpg'" alt="Imagen del proyecto 4">
+    <img src="imagen5.JPG" onerror="this.onerror=null;this.src='imagen5.jpg'" alt="Imagen del proyecto 5">
+  </div>
+</section>
+
+<footer>
+  Proyecto desarrollado por José Miguel, Enrique de la Rosa, Engelberth y Luis Roberto • 2025
+</footer>
+
+</body>
+</html>
